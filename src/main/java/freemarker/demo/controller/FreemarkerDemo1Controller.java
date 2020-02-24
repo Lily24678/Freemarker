@@ -1,6 +1,7 @@
 package freemarker.demo.controller;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -8,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import freemarker.demo.domain.Product;
-import freemarker.demo.domain.User;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -39,13 +39,15 @@ public class FreemarkerDemo1Controller {
         latest.setUrl("products/greenmouse.html");
         latest.setName("green mouse");
         root.put("latestProduct", latest);
+        root.put("item", "ABCDEFG");
 
         /* Get the template (uses cache internally) */
         Template temp = cfg.getTemplate("freemarker_demo1.ftl");
 
         /* Merge data-model with template */
+        FileWriter writer = new FileWriter(new File("F:/TEST.HTML"));
         Writer out = new OutputStreamWriter(System.out);
-        temp.process(root, out);
+        temp.process(root, writer);
 	}
 
 }
